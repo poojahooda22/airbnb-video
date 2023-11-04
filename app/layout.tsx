@@ -4,6 +4,8 @@ import './globals.css'
 import Navbar from './componentts/navbar/Navbar'
 import ClientOnly from './componentts/ClientOnly'
 import RegisterModal from './componentts/modals/RegisterModal'
+import ToasterProvider from './providers/ToasterProvider'
+import LoginModal from './componentts/modals/LoginModal'
 
 const inter = Nunito({ subsets: ['latin'] })
 
@@ -21,6 +23,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ClientOnly>
+          <ToasterProvider />
+          <LoginModal />
           <RegisterModal   />
           <Navbar />
         </ClientOnly>
