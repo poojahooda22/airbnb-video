@@ -5,7 +5,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 // import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-// import useLoginModal from "@/app/hooks/useLoginModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 // import useRentModal from "@/app/hooks/useRentModal";
 // import { SafeUser } from "@/app/types";
@@ -14,6 +14,8 @@ import MenuItem from "./MenuItem";
 import Avatar from "../Avatar";
 import RegisterModal from "../modals/RegisterModal";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import { useEffect, useRef} from "react";
+import LoginModal from "../modals/LoginModal";
 
 // interface UserMenuProps {
 //   currentUser?: SafeUser | null
@@ -21,12 +23,27 @@ import useRegisterModal from "@/app/hooks/useRegisterModal";
 
 const UserMenu = () => {
   const registerModal = useRegisterModal();
-//   const loginModal = useLoginModal();
+  const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
+
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
+
+  const handleClickOutside = useCallback((event: any) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      toggleOpen();
+    }
+  }, [toggleOpen]);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [handleClickOutside]);
 
 
   return ( 
@@ -88,11 +105,11 @@ const UserMenu = () => {
             text-sm
           "
         >
-          <div className="flex flex-col cursor-pointer">
+          <div className="flex flex-col cursor-pointer" ref={modalRef} >
               <>
                 <MenuItem 
                   label="Login" 
-                  onClick={() => {}}
+                  onClick={loginModal.onOpen}
                 />
                 <MenuItem 
                   label="Sign up" 
