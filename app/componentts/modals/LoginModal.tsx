@@ -23,6 +23,7 @@ import Button from "../Button";
 
 const LoginModal= () => {
   const registerModal = useRegisterModal();
+
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
   const router  = useRouter();
@@ -63,9 +64,10 @@ const LoginModal= () => {
   }
 
   const onToggle = useCallback(() => {
-    registerModal.onClose();
+    loginModal.onClose();
+    registerModal.onOpen();
     
-  }, [registerModal])
+  }, [loginModal, registerModal])
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -102,13 +104,13 @@ const LoginModal= () => {
         outline 
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}} 
+        onClick={() => signIn('google')} 
       />
       <Button 
         outline 
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={() => signIn('github')}
       />
       <div 
         className="
