@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { AiFillGithub } from "react-icons/ai";
-// import { signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -22,6 +22,7 @@ import Button from "../Button";
 
 const RegisterModal= () => {
   const registerModal = useRegisterModal();
+  
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -56,8 +57,9 @@ const RegisterModal= () => {
 
   const onToggle = useCallback(() => {
     registerModal.onClose();
+    loginModal.onOpen();
     
-  }, [registerModal])
+  }, [registerModal, loginModal])
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -102,13 +104,13 @@ const RegisterModal= () => {
         outline 
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}} 
+        onClick={() => signIn('google')} 
       />
       <Button 
         outline 
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={() => signIn('github')}
       />
       <div 
         className="
