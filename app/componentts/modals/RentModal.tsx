@@ -16,6 +16,7 @@ import {
     useForm
   } from 'react-hook-form';
 import Counter from "../inputs/Counter";
+import ImageUpload from "../inputs/ImageUpload";
 
 
 enum STEPS {
@@ -61,6 +62,7 @@ const RentModal = () => {
     const guestCount = watch('guestCount');
     const roomCount = watch('roomCount');
     const bathroomCount = watch('bathroomCount');
+    const imageSrc = watch('imageSrc');
 
     const Map = useMemo(() => dynamic(() => import('../Map'), {
       ssr: false
@@ -179,6 +181,10 @@ const RentModal = () => {
           <Heading
             title="Add a photo of your place"
             subtitle="Show guests what your place looks like!"
+          />
+          <ImageUpload 
+            value={watch('imageSrc')}
+            onChange={(value) => setCustomValue('imageSrc', value)}
           />
         </div>
       )
