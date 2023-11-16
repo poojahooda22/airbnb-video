@@ -11,10 +11,14 @@ const PropertiesPage = async () => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    return <EmptyState
-      title="Unauthorized"
-      subtitle="Please login"
-    />
+    return (
+      <ClientOnly>
+        <EmptyState
+          title="Unauthorized"
+          subtitle="Please login"
+        />
+      </ClientOnly>
+    )
   }
 
   const listings = await getListings({ userId: currentUser.id });
