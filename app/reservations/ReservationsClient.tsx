@@ -13,7 +13,7 @@ import ListingCard from "@/app/componentts/listings/ListingCard";
 
 interface ReservationsClientProps {
   reservations: SafeReservation[],
-  currentUser?: SafeUser | null,
+  currentUser?: SafeUser | null
 }
 
 const ReservationsClient: React.FC<ReservationsClientProps> = ({
@@ -58,7 +58,7 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({
           gap-8
         "
       >
-        {reservations.map((reservation: any) => (
+        {reservations.map((reservation) => (
           <ListingCard
             key={reservation.id}
             data={reservation.listing}
